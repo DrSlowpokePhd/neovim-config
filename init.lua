@@ -1,37 +1,15 @@
+-- Jamie's Neovim Config
+-- based on the https://github.com/nvim-lua/kickstart.nvim config
+-- config split into 3 main files in the ./lua directory
+-- Set <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+require('plugins')
+require('options')
+require('keybinds')
 
---    Author:     Ali Shahid
---    Github:     github.com/shaeinst
-
-
-
--- ───────────────────────────────────────────────── --
--- ────────────────❰ Leader Mapping ❱─────────────── --
--- mapping leader here. it will work for every mapped
-
-vim.g.mapleader = ';'
-vim.g.maplocalleader = '|'
--- ───────────────────────────────────────────────── --
-
-
-
-
--- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ --
--- ━━━━━━━━━━━━━❰ Load/Source Configs ❱━━━━━━━━━━━━━ --
-
--- plugin config to improve start-up time.
--- it should be always on the top of init.lua file
-require('plugins/impatient_nvim')   -- impatient needs to be setup before any other lua plugin is loaded so it is recommended you add the following near the start of your
-
-require('configs')                  -- plugin independent configs
-require('mappings')                 -- plugin independent mappings
-require('customs/abstractline')     -- status line
-require('customs/override_defalut') -- always put this config(override_defalut) at last because it's use to overide the any already defined config
-
--- load/source PLUGINS CONFIGS
--- loading plugins and its configs are managed in seperate config file, ~/.config/nvim/lua/plugins/packer_nvim.lua
--- NOTE: always load plugins at last 
-require('packer_nvim')
-
--- ━━━━━━━━━━━━━━━━━❰ end of Load ❱━━━━━━━━━━━━━━━━━ --
--- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ --
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=4 sts=4 sw=4 et
 

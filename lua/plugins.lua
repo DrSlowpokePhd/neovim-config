@@ -22,15 +22,16 @@ require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'                                                          -- Collection of configurations for built-in LSP client
   use 'williamboman/mason.nvim'                                                        -- Manage external editor tooling i.e LSP servers
   use 'williamboman/mason-lspconfig.nvim'                                              -- Automatically install language servers to stdpath
-  use { 'hrsh7th/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp' } }                    -- Autocompletion
-  use { 'L3MON4D3/LuaSnip', requires = { 'saadparwaiz1/cmp_luasnip' } }                -- Snippet Engine and Snippet Expansion
+  use {'ms-jpq/coq_nvim', branch = 'coq'}
+    -- use { 'yioneko/nvim-cmp', requires = { 'hrsh7th/cmp-nvim-lsp' } }                    -- Autocompletion
+  use { 'L3MON4D3/LuaSnip' --[[, requires = { 'saadparwaiz1/cmp_luasnip' }]] }                -- Snippet Engine and Snippet Expansion
   use 'mjlbach/onedark.nvim'                                                           -- Theme inspired by Atom
   use 'nvim-lualine/lualine.nvim'                                                      -- Fancier statusline
   use 'lukas-reineke/indent-blankline.nvim'                                            -- Add indentation guides even on blank lines
   use 'echasnovski/mini.nvim'                                                          -- Seriously tiny neovim plugins
   use 'uga-rosa/ccc.nvim'                                                              -- Super powerful color picker / colorizer plugin.
   use 'sainnhe/gruvbox-material'                                                       -- Gruvbox modification with softer contrast and Tree-sitter support.
-  use { 'noib3/nvim-cokeline', requires = 'kyazdani42/nvim-web-devicons' }             -- A Tabline for people with addictive personalities
+  use { 'willothy/nvim-cokeline', requires = 'kyazdani42/nvim-web-devicons' }             -- A Tabline for people with addictive personalities
   use { 'nvim-tree/nvim-tree.lua', requires = 'nvim-tree/nvim-web-devicons' }          -- file tree, better than NERDTree, smaller than CHADTree
   use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }                 -- DAP (Debug Adapter Protocol) support for neovim
   use 'is0n/jaq-nvim'                                                                  -- Just Another Quickrun Plugin

@@ -69,10 +69,8 @@ require('Comment').setup()
 -- See `:help indent_blankline.txt`
 vim.opt.list = true
 vim.opt.listchars:append "eol:↴"
-require('indent_blankline').setup {
-    char = '┊',
-    show_trailing_blankline_indent = false,
-    show_end_of_line = true
+require('ibl').setup {
+    indent = {char = '┊'},
 }
 
 -- Gitsigns
@@ -107,7 +105,7 @@ pcall(require('telescope').load_extension, 'fzf')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'javascript' },
+  ensure_installed = { 'c', 'cpp', 'go', 'python', 'rust', 'javascript', 'gdscript' },
 
   highlight = { enable = true },
   indent = { enable = true },
@@ -222,7 +220,7 @@ local on_attach = function(_, bufnr)
 end
 
 -- nvim-cmp supports additional completion capabilities
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Setup mason so it can manage external tooling
 require('mason').setup()
@@ -237,12 +235,13 @@ require('mason-lspconfig').setup {
 
 for _, lsp in ipairs(servers) do
   require('lspconfig')[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
+    require('coq').lsp_ensure_capabilities{
+      on_attach = on_attach,
+        }
   }
 end
 -- setup gdscript lsp
-require'lspconfig'.gdscript.setup{capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())}
+require'lspconfig'.gdscript.setup{}
 -- Example custom configuration for lua
 --
 -- Make runtime files discoverable to the server
@@ -271,48 +270,7 @@ require('lspconfig').lua_ls.setup {
   },
 }
 
--- nvim-cmp setup
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
+-- require("nvim_cmp_opts")
 
 -- jaq-nvim setup
 require('jaq-nvim').setup{
@@ -402,6 +360,8 @@ require('mini.surround').setup({
         suffix_next = 'n', -- Suffix to search with "next" method
     }
 })
+
+require('mini.completion').setup()
 
 require("skel-nvim").setup{
   -- file pattern -> template mappings
